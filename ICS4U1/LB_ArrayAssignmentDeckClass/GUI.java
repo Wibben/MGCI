@@ -95,7 +95,7 @@ class GUI extends JFrame
                     dealBtn.setEnabled(true);
                     position.setEnabled(true);
                 }
-                deck.add(new Card(parseSuit("Add")*13+parseRank("Add"))); // Add the selected card
+                deck.add(new Card(addSuit.getSelectedIndex()*13+addRank.getSelectedIndex())); // Add the selected card
                 position.addItem(new Integer(deck.length())); // Add to the end of the combobox
             } else if(e.getActionCommand().equals("Deal")) {
                 deck.deal((int)position.getSelectedItem()-1); // Deal the card at the selected position
@@ -111,7 +111,7 @@ class GUI extends JFrame
                     position.setEnabled(false);
                 }
             } else if(e.getActionCommand().equals("Search")) { // Find the positions of the cards and turn every other card upside down
-                ArrayList foundPos = deck.search(new Card(parseSuit("Search")*13+parseRank("Search")));
+                ArrayList foundPos = deck.search(new Card(searchSuit.getSelectedIndex()*13+searchRank.getSelectedIndex()));
                 
                 // FLip everything, then flip the searched cards again
                 for(int i=0; i<deck.length(); i++)
@@ -128,35 +128,6 @@ class GUI extends JFrame
             }
 
             repaint(); // do after each action taken to update deck
-        }
-        
-        private int parseSuit(String box)
-        {
-            String s = (String)(box.equals("Search") ? searchSuit:addSuit).getSelectedItem(); // Read from the correct combobox
-            
-            if(s.equals("\u2660")) return 0;
-            else if(s.equals("\u2665")) return 1;
-            else if(s.equals("\u2663")) return 2;
-            else return 3;
-        }
-        
-        private int parseRank(String box)
-        {
-            String r = (String)(box.equals("Search") ? searchRank:addRank).getSelectedItem(); // Read from the correct combobox
-            
-            if(r.equals("2")) return 0;
-            else if(r.equals("3")) return 1;
-            else if(r.equals("4")) return 2;
-            else if(r.equals("5")) return 3;
-            else if(r.equals("6")) return 4;
-            else if(r.equals("7")) return 5;
-            else if(r.equals("8")) return 6;
-            else if(r.equals("9")) return 7;
-            else if(r.equals("10")) return 8;
-            else if(r.equals("J")) return 9;
-            else if(r.equals("Q")) return 10;
-            else if(r.equals("K")) return 11;
-            else return 12;
         }
     }
 
