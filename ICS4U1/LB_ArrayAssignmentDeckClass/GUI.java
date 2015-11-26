@@ -11,27 +11,27 @@ class GUI extends JFrame
 {
     private Deck deck = new Deck();
     private JComboBox<String> sortOp = new JComboBox<String>(new String[]{"by Rank","by Suit and Rank"});
-    private JComboBox<Integer> dealNumber;
     private String[] suit = new String[]{"\u2660","\u2665","\u2663","\u2666"};
     private String[] rank = new String[]{"2","3","4","5","6","7","8","9","10","J","K","Q","A"};
     private JComboBox<String> searchSuit = new JComboBox<String>(suit),addSuit = new JComboBox<String>(suit);
     private JComboBox<String> searchRank = new JComboBox<String>(rank),addRank = new JComboBox<String>(rank);
     private JComboBox<Integer> position;
+    private JButton shuffleBtn = new JButton("Shuffle");
+    private JButton sortBtn = new JButton("Sort");
     private JButton searchBtn = new JButton("Search");
+    private JButton dealBtn = new JButton("Deal");
+    private JButton addBtn = new JButton("Add");
 
     public GUI()
     {
         // Initialize components
         BtnListener btnListener = new BtnListener(); // listener for all buttons
 
-        JButton shuffleBtn = new JButton("Shuffle");
         shuffleBtn.addActionListener(btnListener);
-        JButton sortBtn = new JButton("Sort");
         sortBtn.addActionListener(btnListener);
         searchBtn.addActionListener(btnListener);
-        JButton dealBtn = new JButton("Deal");
         dealBtn.addActionListener(btnListener);
-        JButton addBtn = new JButton("Add");
+        
         addBtn.addActionListener(btnListener);
         
         Integer[] numbers = new Integer[52];
@@ -81,19 +81,37 @@ class GUI extends JFrame
     {
         public void actionPerformed(ActionEvent e)
         {
-            ArrayList foundPos = new ArrayList(0);
-            
             if(e.getActionCommand().equals("Shuffle")) deck.shuffle(); // shuffle deck
             else if(e.getActionCommand().equals("Sort") && ((String)sortOp.getSelectedItem()).equals("by Rank")) deck.quickSort(); // sort deck
             else if(e.getActionCommand().equals("Sort") && ((String)sortOp.getSelectedItem()).equals("by Suit and Rank")) deck.selectionSort(); // sort deck
             else if(e.getActionCommand().equals("Add")) {
+                if(deck.length()==0) { // Enable everything if it was disabled
+                    shuffleBtn.setEnabled(true);
+                    sortBtn.setEnabled(true);
+                    sortOp.setEnabled(true);
+                    searchBtn.setEnabled(true);
+                    searchSuit.setEnabled(true);
+                    searchRank.setEnabled(true);
+                    dealBtn.setEnabled(true);
+                    position.setEnabled(true);
+                }
                 deck.add(new Card(parseSuit("Add")*13+parseRank("Add"))); // Add the selected card
                 position.addItem(new Integer(deck.length())); // Add to the end of the combobox
             } else if(e.getActionCommand().equals("Deal")) {
                 deck.deal((int)position.getSelectedItem()-1); // Deal the card at the selected position
                 position.removeItemAt(deck.length()); // Take away from the end of the combobox
+                if(deck.length()==0) { // Disable buttons if there is nothing left
+                    shuffleBtn.setEnabled(false);
+                    sortBtn.setEnabled(false);
+                    sortOp.setEnabled(false);
+                    searchBtn.setEnabled(false);
+                    searchSuit.setEnabled(false);
+                    searchRank.setEnabled(false);
+                    dealBtn.setEnabled(false);
+                    position.setEnabled(false);
+                }
             } else if(e.getActionCommand().equals("Search")) { // Find the positions of the cards and turn every other card upside down
-                foundPos = deck.search(new Card(parseSuit("Search")*13+parseRank("Search")));
+                ArrayList foundPos = deck.search(new Card(parseSuit("Search")*13+parseRank("Search")));
                 
                 // FLip everything, then flip the searched cards again
                 for(int i=0; i<deck.length(); i++)
@@ -102,10 +120,7 @@ class GUI extends JFrame
                     deck.flip((int)foundPos.get(i));
                 
                 searchBtn.setText("Reset"); // Update button text
-            } else if(e.getActionCommand().equals("Reset")) { // Reset after search
-                foundPos = new ArrayList(0);
-                
-                // Flip everything that is not face up
+            } else if(e.getActionCommand().equals("Reset")) { // Reset after search// Flip everything that is not face up
                 for(int i=0; i<deck.length(); i++)
                     if(!deck.getFaceup(i)) deck.flip(i);
                 

@@ -47,10 +47,9 @@ class Deck
     public void deal(int pos) // Eliminates the card at position pos
     {
         Card[] temp = new Card[Math.max(0,deck.length-1)]; // Make a new card array with 1 less card
-        int cnt = 0; // Counter to track position in temp deck
         
         // Loop from 0 to length of array, skipping over the card at position pos
-        for(int i=0; i<deck.length && deck.length>1; i++,cnt++) {
+        for(int i=0,cnt=0; i<deck.length && deck.length>1; i++,cnt++) { // cnt is a counter to keep track of position in temp
             if(i==pos) cnt--; // Skipping over the card at position pos, when dkipping over, decrement cnt so it will still be continuous
             else temp[cnt] = deck[i];
         }
