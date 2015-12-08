@@ -40,11 +40,18 @@ class Colony
         grid = temp; // Make the temporary grid the actual grid
     }
     
-    public void affect(int row, int col)
+    public void populate(int row, int col, int endrow, int endcol)
     {
-        int prob = 1; // Probability of the cell being affected
-        
-        if(Math.random()<prob) grid[row][col] = !grid[row][col]; // If activated, set the tile alive or dead
+        for(int i=Math.max(Math.min(row,endrow),0); i<Math.min(Math.max(row,endrow)+1,grid.length); i++) 
+            for(int j=Math.max(Math.min(col,endcol),0); j<Math.min(Math.max(col,endcol)+1,grid[0].length); j++) 
+                if(Math.random()<0.8) grid[i][j] = true; // 80% chance of population
+    }
+    
+    public void eradicate(int row, int col, int endrow, int endcol)
+    {
+        for(int i=Math.max(Math.min(row,endrow),0); i<Math.min(Math.max(row,endrow)+1,grid.length); i++) 
+            for(int j=Math.max(Math.min(col,endcol),0); j<Math.min(Math.max(col,endcol)+1,grid[0].length); j++) 
+                if(Math.random()<0.8) grid[i][j] = false; // 80% chance of eradication
     }
 
     private boolean live(int row, int col)

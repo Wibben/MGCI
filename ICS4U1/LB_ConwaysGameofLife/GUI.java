@@ -14,64 +14,66 @@ class GUI extends JFrame
     private JComboBox<String> files = new JComboBox<String>(new String[]{"Clear","Still Life","Gosper Glider Gun","Flower","Random"});
     private JButton simulateBtn;
     private JTextField _name;
-    private int x,y;
-    private boolean dragging;
+    private JLabel mode;
+    private boolean dragging,pop;
 
     public GUI()
     {
         // Initialize components
-        x = y = -1;
         dragging = false;
+        pop = true;
         BtnListener btnListener = new BtnListener(); // listener for all buttons
 
         simulateBtn = new JButton("Simulate");
         simulateBtn.addActionListener(btnListener);
+        JButton modeBtn = new JButton("Change Mode");
+        modeBtn.addActionListener(btnListener);
         JButton saveBtn = new JButton("Save");
         saveBtn.addActionListener(btnListener);
         JButton loadBtn = new JButton("Load");
         loadBtn.addActionListener(btnListener);
 
         // Create content pane, set layout
+        mode = new JLabel("Mode: Populate");
         JPanel content = new JPanel();        // Create a content pane
         content.setLayout(new BorderLayout()); // Use BorderLayout for panel
         JPanel north = new JPanel();
         north.setLayout(new FlowLayout()); // Use FlowLayout for input area
+        JPanel south = new JPanel();
+        south.setLayout(new FlowLayout()); // Use FlowLayout for input area
         _name = new JTextField(10);
 
         DrawArea board = new DrawArea(500,500);
         board.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                x = e.getX()/5; y = (e.getY()-3)/5; // Update x and y
-                colony.affect(y,x); // Flip y and x because y is the row and x is the column
-                repaint(); // Refresh frame
+            int x,y,ex,ey;
+            public void mousePressed(MouseEvent e) {
+                x = e.getX()/5; y = e.getY()/5; // Get starting values
             }
-        });
-        board.addMouseMotionListener(new MouseMotionListener() {
-            public void mouseDragged(MouseEvent e) {
-                if(x!=e.getX()/5 || y!=(e.getY()-3)/5) { // Update only once per cell
-                    x = e.getX()/5; y = (e.getY()-3)/5; // Update x and y
-                    colony.affect(y,x); // Flip y and x because y is the row and x is the column
-                    repaint(); // Refresh frame
-                }
+            public void mouseReleased(MouseEvent e) {
+                ex = e.getX()/5; ey = e.getY()/5; // Get ending values
+                if(pop) colony.populate(y,x,ey,ex); // Populate or eradicate the calls within range
+                else colony.eradicate(y,x,ey,ex);
+                repaint();
             }
-            public void mouseMoved(MouseEvent e) {}
         });
 
         // Add components to content area
         north.add(simulateBtn);
-        north.add(saveBtn);
-        north.add(_name);
-        north.add(loadBtn);
-        north.add(files);
-
-        content.add(north,"North"); // Input area
-        content.add(board,"South"); // Output area
+        north.add(mode);
+        north.add(modeBtn);
+        south.add(saveBtn);
+        south.add(_name);
+        south.add(loadBtn);
+        south.add(files);
+        
+        content.add(north,"North");
+        content.add(board,"Center"); // Output area
+        content.add(south,"South");
 
         // Set window attributes
         setContentPane(content);
         pack();
         setTitle("Life Simulation");
-        setSize(510,570);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);           // Center window.
     }
@@ -88,6 +90,9 @@ class GUI extends JFrame
             } else if(e.getActionCommand().equals("Stop")) {
                 t.stop(); // Stop simulati
                 simulateBtn.setText("Simulate"); // Set the text to read Simulate
+            } else if(e.getActionCommand().equals("Change Mode")) {
+                pop = !pop; // Invert the populate boolean
+                mode.setText("Mode: "+(pop ? "Populate":"Eradicate"));
             } else if(e.getActionCommand().equals("Save")) {
                 colony.save(_name.getText());
                 // Remove the current one and put in the new one
