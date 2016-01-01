@@ -23,8 +23,15 @@ class Colony
             for(int col=0; col<grid[0].length; col++) {
                 if (grid[row][col]) g.setColor (Color.black); // Life
                 else g.setColor (Color.white);
-                g.fillRect (col * 5 + 2, row * 5 + 2, 5, 5); // Draw life form
+                g.fillRect (col * 5, row * 5, 5, 5); // Draw life form
             }
+        }
+        
+        // Draw box to indicate affected area
+        g.setColor(new Color(50,50,50,50));
+        for(int i=0; i<100; i++) {
+            g.drawLine(0,i*5,500,i*5);
+            g.drawLine(i*5,0,i*5,500);
         }
     }
 

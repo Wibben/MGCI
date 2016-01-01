@@ -16,6 +16,8 @@ class GUI extends JFrame
     private JTextField _name;
     private JLabel mode;
     private boolean dragging,pop;
+    private Color highlight = new Color(176,213,230,75); // A light blue with 75% opacity
+    private int x,y,ex,ey;
 
     public GUI()
     {
@@ -23,6 +25,7 @@ class GUI extends JFrame
         dragging = false;
         pop = true;
         BtnListener btnListener = new BtnListener(); // listener for all buttons
+        x = y = ex = ey = -1;
 
         simulateBtn = new JButton("Simulate");
         simulateBtn.addActionListener(btnListener);
@@ -45,16 +48,24 @@ class GUI extends JFrame
 
         DrawArea board = new DrawArea(500,500);
         board.addMouseListener(new MouseAdapter() {
-            int x,y,ex,ey;
             public void mousePressed(MouseEvent e) {
                 x = e.getX()/5; y = e.getY()/5; // Get starting values
+                dragging = true;
             }
             public void mouseReleased(MouseEvent e) {
                 ex = e.getX()/5; ey = e.getY()/5; // Get ending values
                 if(pop) colony.populate(y,x,ey,ex); // Populate or eradicate the calls within range
                 else colony.eradicate(y,x,ey,ex);
+                dragging = false;
                 repaint();
             }
+        });
+        board.addMouseMotionListener(new MouseMotionListener() {
+            public void mouseDragged(MouseEvent e) {
+                ex = e.getX()/5; ey = e.getY()/5; // Get current value
+                repaint();
+            }
+            public void mouseMoved(MouseEvent e){}
         });
 
         // Add components to content area
@@ -117,6 +128,10 @@ class GUI extends JFrame
         public void paintComponent(Graphics g)
         {
             colony.show(g); // display current state of colony
+            if(dragging) {
+                g.setColor(highlight);
+                g.fillRect(Math.min(x*5,ex*5),Math.min(y*5,ey*5),Math.abs(ex*5-x*5),Math.abs(ey*5-y*5));
+            }
         }
     }
 
@@ -132,7 +147,7 @@ class GUI extends JFrame
     public static int main()
     {
         GUI window = new GUI();
-        window.setVisible (true);
+        window.setVisible(true);
         
         return 0;
     }
