@@ -128,6 +128,8 @@ class GUI extends JFrame
         public void paintComponent(Graphics g)
         {
             colony.show(g); // display current state of colony
+			
+			// Draw box to indicate affected area
             if(dragging) {
                 g.setColor(highlight);
                 g.fillRect(Math.min(x*5,ex*5),Math.min(y*5,ey*5),Math.abs(ex*5-x*5),Math.abs(ey*5-y*5));

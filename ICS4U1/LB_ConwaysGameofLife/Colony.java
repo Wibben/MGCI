@@ -27,7 +27,7 @@ class Colony
             }
         }
         
-        // Draw box to indicate affected area
+        // Draw gridlines
         g.setColor(new Color(50,50,50,50));
         for(int i=0; i<100; i++) {
             g.drawLine(0,i*5,500,i*5);
