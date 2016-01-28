@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Game Properties: </comment>
+<entry key="population control">1</entry>
+<entry key="number of dinosaurs">300</entry>
+<entry key="height">600</entry>
+<entry key="forest width">100</entry>
+<entry key="width">800</entry>
+<entry key="forest length">100</entry>
+</properties>

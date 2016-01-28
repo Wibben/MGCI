@@ -1,0 +1,25 @@
+Enums are basically a way to make things clearer by using words to represent values
+
+Usage in the program: Age, Domain and Group, they are in the Life class
+
+Age: 0 - baby, 1 - juvenile, 2 - adult, 3 - old
+Domain: 0 - air, 1 - water, 2 - land
+Group: 0 - alone, 1 - small, 2 - large
+
+It's too much hassle to remember the numbers, so when youre checking for Domain or Group of a dino use:
+
+if(dino.getAge()==Age.BABY) (BABY can be substituted by JUVENILE, ADULT, and OLD)
+if(dino.getDomain()==Domain.AIR) (AIR can be substituted by WATER and LAND)
+or
+if(dino.getGroup()==Group.ALONE) (ALONE can be substituted by SMALL and LARGE)
+
+
+To get the integer values as described above, use
+
+dino.getAge().value(), dino.getDomain().value() or dino.getGroup().value()
+
+******************
+NOTE: Use the enums to do anything with age, domain and group now
+
+SPECIAL: Age has a next() method which will move to the next age, to use it, do
+age = age.next();

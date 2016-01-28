@@ -1,0 +1,180 @@
+Thrive Life Simulator
+By Bingran Li, Nicholas Vadivelu, Lawrence Pang
+ICS4U1-04
+Started: 12 January 2016
+
+Bugs to Fix/ Features to Implement (in order of importance):
+	DONE - Merge logic of GUI and Actual Game
+	DONE - Smooth movement
+	DONE - Fix ground and sky correction factor (up down, left right, forward back)
+	DONE - Create opening screen with custom options
+	DONE - Optimize variable use in GUI
+	DONE - Why are random dinosaurs generating outside of bounds (for Random Level in GUI, NOT the real logic so doesn't matter)
+	DONE - Toolbar gets cut off when you have a screen that is too small
+	
+Change Log:
+V 1.7.6 - Nicholas Vadivelu
+	- Fixed options size changing issue
+	- made sprites resize with different screen sizes
+	- slightly adjusted minimum height and upCorrect
+
+V 1.7.5 - Nicholas Vadivelu
+	- Added population control to GUI
+	- Added 1/2/3/4 for the button control
+	- Removed popup for earthquake
+	- Changed main class from GUI to StartGame
+
+V 1.7.4 - Bing Li
+	- Implemented automatic population control in game
+
+V 1.7.3 - Nicholas Vadivelu
+	- Commented code
+	- Ensured all public variables are now private or protected with appropriate getters/setters
+	- Optimized Code
+	- options menu induces a pause
+	- fixed some of the user prompts
+	- Added tooltiptexts
+	- Made Dino Generation random
+	- Implemented automatic population control in options class
+
+V 1.7.2 - Bing Li
+	- Allowed user to create a dino
+	- Fixed sometimes error of earthquake modifying life array in the midst of advance
+	- Added access to user x and y coordinates
+
+V 1.7.1 - Nicholas Vadivelu
+	- Added error checking for the inputted values
+	- moved location of config.xml file
+
+V 1.7.0 - Nicholas Vadivelu
+	- Launcher class that greets the user
+	- Options class that allows user to change settings while in game
+	- Configuration class that stores information in an XML file
+	- removed random meteor strieks
+	- created change size class
+	- added different colouring for sick dinosaurs
+	- Changed meteor to earthquake
+	- added more user choices
+	- Made the user start out diagonally to prevent textures from not fully loading
+
+V 1.6.4 - Bing Li
+	- Cleaned up some useless code
+	- Made dinos more inclined to go in the direction they just went in
+
+V 1.6.3 - Nicholas Vadivelu
+	- Changed Sprite Chroma back
+	- Added baby sprites, grave sprite, and egg sprite
+	- Fixed sprite up/down movement when player moves
+	- overloaded renderSprite method to accept renders in parameter
+
+V 1.6.2 - Bing Li
+	- Made baby dinos unable to move as they are going to be eggs
+	- Made baby dinos immune to hunger and disease
+	- Fixed dinos going too far out of bounds
+	- Added hard boundaries for dinos and they will be teleported back if they step outside
+
+V 1.6.1 - Lawrence Pang
+	- Implemented Smooth Movement
+	- Added timer integer to Game to have consistent refresh
+	- Slightly improved sprite transparency
+	- Fixed copy constructor bug that made some integers = 0
+
+V 1.6.0 - Nicholas Vadivelu
+	- Created new 256 bit sprites
+	- Assigned different sprites to each species of dinosaur
+	- Added class arrays to Textures class for more convenient access
+	- Upgraded program to Beta
+
+V 1.5.6 - Lawrence Pang
+	- Fixed non-movement bug
+	- Changed some in game messages and added death counter for meteor
+	- Fixed lifeforms not moving (memory reference mistakes) with the insight of Nicholas Vadivelu
+	- Fixed a dino being able to interact with itself
+
+V 1.5.5 - Nicholas Vadivelu
+	- Added moveTo method along with initial position in the sprite class to allow for movement
+	- Changed initial dinosaur placing system: now all of them have one "home" block and their position is based on that home block (Same as player's origin)
+	- Changed Sprite coordinate system to ints instead of doubles
+	- Added convenient accessor and mutator methods in Level
+	- Implemented loop in Render3D that is supposed to render all the sprites, not working
+
+V 1.5.4 - Bing Li
+	- Got rid of Domain and Group enums
+	- Added Name enum and replaced all instances of instanceof
+	- Bug fix: sometimes values were switched around
+
+V 1.5.3 - Lawrence Pang
+	- Allows actual dino logic to generate world in GUI, still no movement
+	- Adjusted move correction, still not perfect
+
+V 1.5.2 - Bing Li
+	- Balanced stats
+	- Added external population controls to add more dinosaurs if not enough and kill dinosaurs if too many
+
+V 1.5.1 - Nicholas Vadivelu
+	- Merged Nicholas Vadivelu Version 1.5.0 and Bingran Li 1.4.3 so both have all classes (functionality still not complete).
+	- Added Bugs to Fix/ Features to Implement section to changelog
+
+V 1.5.0 - Nicholas Vadivelu
+	- Final 3D movement updated and restraints added
+	- 64x64 textures added
+	- Added 3D tree graphics
+	- Added 2.5D dinosaur sprites
+		- Also implemented 64x64 Sprite textures with transparency
+	- Clipping fixed
+	- Fog distance render limiter implememted (instead of dark)
+
+V 1.4.3 - Bing Li
+	- Added meteor and disease methods
+	- Balanced spawn ratios to 40/20/40 for herbivores/carnivores/trees
+	- Added reproduction
+
+V 1.4.2 - Bing Li
+	- Changed 2DArray to ArrayList for storing Life objects
+	- Added Water class and took out Plant class leaving only Tree behind
+
+V 1.4.1 - Lawrence Pang
+	- Added error checking for move
+
+V 1.4.0 - Nicholas Vadivelu
+	- Final 3D Movement Implemented (including rotating and vertical movement)
+	- Added textures to ground and ceiling
+	- Added functional walls
+	- Added textures to wall
+	- Implemented "speed" movement using shift
+	- Added Render Distance Limiter to fade out background
+	- Created level class to generate a map
+	- Created block class to use walls to create 3D objects
+
+
+V 1.4.0 - Lawrence Pang
+	- Created specific dinosaur and plant Classes
+	- Integrated Lawrence Pang's table if specs
+	- Begun working on main logic (interaction and moving)
+
+V 1.3.0 - Nicholas Vadivelu
+	- Created Render3D Class
+	- Sample 3D Movement Implemented
+	- Created InputHandler class to handle input
+	- Created controller class to convert user input into action
+	- User can now move around in the 3D generated space
+	- Added Textures class and imported textures
+	- Created "ToDo.txt" file to add important items to do
+
+V 1.2.0 - Nicholas Vadivelu
+	- Seperated all enums into own files
+	- Created Render and Screen classes in order to control the GUI
+	- GUI now extends Canvas implements Runnable so it can be used as an applet
+	- GUI now displays random pixels and basic elements are initialized
+		- Used BufferedImage and BufferStrategy to read data from the BufferedImage and display onto screen
+
+V 1.1.0 - Bing Li
+	- Renamed Dinosaur class to Dino
+	- Created Life and Plant Classes
+	- Created Age, Domain and Group enums for clarity when writing code later
+	- Added guide on using the enums in code
+
+V 1.0.0 - Nicholas Vadivelu
+	- Created ReadMe.txt and ChangeLog.txt
+	- Started IntelliJ Project
+	- Created GUI, Main, and Dinosaur Classes
