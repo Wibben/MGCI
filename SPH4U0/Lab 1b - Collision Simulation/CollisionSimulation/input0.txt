@@ -1,0 +1,26 @@
+Simulation duration: (s)
+5
+
+Object A:
+Initial Position: (x y)
+0 0
+Initial Velocity: (x y)
+0.1 0
+Mass: (kg)
+0.015
+Radius: (m)
+0.0307
+Max Compression: (m)
+0.002
+
+Object B:
+Initial Position: (x y)
+0.25 0
+Initial Velocity: (x y)
+0 0
+Mass: (kg)
+0.015
+Radius: (m)
+0.0307
+Max Compression: (m)
+0.002
